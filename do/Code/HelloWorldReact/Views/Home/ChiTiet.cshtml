@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "ChiTiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ChiTiet</h2>
+@model List<IS.uni.detail_OBJ>
+@{
+    ViewBag.Title = "Danh sách quốc gia";
+}
+<div id="container" class="content-wrapper">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Danh sách quốc gia</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <button className="btn btn-sm  btn-primary" id="btnAdd" onClick="return handleNew();">
+                        Thêm mới
+                    </button>
+
+                    <table id="example2" class="table table-bordered table-hover">
+                        <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel">Detail</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        @foreach (var a in Model)
+                                        {
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="name">Họ tên:</label>
+                                                <label id="name">@a.code</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="birth-day">Ngày sinh:</label>
+                                                <label id="birth-day">@a.dateofbirth</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="class">L?p:</label>
+                                                <label id="class">xc</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Chuyên ngành:</label>
+                                                <label id="">xc</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Hình th?c dào t?o:</label>
+                                                <label id="">xc</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">B?c h?c:</label>
+                                                <label id="">xc</label>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group">
+                                                        <label for="">H?nh ki?m:</label>
+                                                        <label id="">xc</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Trình d? ti?ng anh:</label>
+                                                        <label id="">xc</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Ch?ng ch? th? d?c:</label>
+                                                        <label id="">xc</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Ch?ng ch? qu?c phòng:</label>
+                                                        <label id="">xc</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="">Ði?m trung bình:</label>
+                                                        <label id="">xc</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">T?ng s? tín ch?:</label>
+                                                        <label id="">xc</label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="">T? ch?n co s? ngành:</label>
+                                                        <label id="">xc</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">T? ch?n chuyên ngành:</label>
+                                                        <label id="">xc</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                        }
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+        </div>
+        <!-- /.col -->
+    </div>
+
+</div>
+<script>
+    function handleRemove(code) {
+        $.ajax({
+            url: "/nation/delete",
+            data: { id: code }, //truyen id(=CODE) len de xoa
+            dataType: 'json',
+            success: function (data) {
+                if (data.sussess >= 0) {
+                    location.reload();
+                } else {
+                    //try to waiting
+                    alert('Lỗi xóa bản ghi');
+                }
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    }
+    function handleEdit(code)
+    {
+        alert('sua ban ghi:'+code);
+    }
+    function handleNew() {
+        alert('Them moi ban ghi');
+    }
+</script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/react/react-0.12.2.min.js"></script>
+
